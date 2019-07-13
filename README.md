@@ -17,7 +17,6 @@ Inspired by [@rjmk](https://github.com/rjmk) and his [error handling talk](https
    1. [General principles](#general-principles)
    2. [Approach 1: Error-First Callbacks ](#approach-1-error-first-callbacks)
    3. [Approach 2: Throwing and Catching Errors ](#approach-2-throwing-and-catching-errors)
-   4. [Approach 3: Returning Errors to the Caller](#approach-3-returning-errors-to-the-caller)
 5. [Notes](#notes)
 6. [External Resources](#external-resources)
 
@@ -27,7 +26,6 @@ Inspired by [@rjmk](https://github.com/rjmk) and his [error handling talk](https
 * Understand how to use the error-first callback pattern
 * Understand how to `throw` an error
 * Understand how to use `try/catch` to handle thrown errors
-* Understand how to use the return error pattern
 * Understand in what contexts each of these approaches might be useful
 
 ## Problem
@@ -42,7 +40,7 @@ console.log(changeVal({}, 6));
 // TypeError: func is not a function
 ```
 
-Which would fail and break your application, as changeVal is expecting a function as its first argument, and instead an object has been passed. This example seems trivial, but can easily happen (perhaps by forgetting to pass all arguments into a function, or passing them in the wrong order).
+Which would fail and break your application, as changeVal is expecting a function as its first argument, and instead an object has been passed.
 
 Sometimes errors happen silently, causing problems down the line that are hard to trace:
 
@@ -75,8 +73,6 @@ Broadly speaking, errors come in two kinds [[2]](#external-resources):
 
 How you should handle any given error depends on what kind of error it is. Operational errors are a normal part of the issues a program must deal with. They typically should not cause the program to terminate or behave unexpectedly. By contrast, programmer errors are by definition unanticipated, and may potentially leave the application with unpredictable state and behaviour. In this case it is usually best to terminate the program.
 
-There is, however, no blanket rule for what to do; each error represents a specific problem in the context of an entire application and the appropriate response to it will be heavily context dependent.
-
 ## Approaches
 
 Good error handling is typically not something that can just be bolted onto an existing program as an afterthought. Well conceived error handling will affect the structure of the code. In JavaScript and Node.js, there are a number of approaches, some of which are explored below.
@@ -88,27 +84,17 @@ Regardless of the chosen approach, there are some principles which can be genera
 1. **Be consistent, not ad-hoc.**
    * Inconsistent approaches to error handling will complicate your code and make it much harder to reason about.
 2. **Try to trip into a failure code path as early as possible.**
-   * A _code path_ is the path that data takes through your code. A _success code path_ is the path data takes if everything goes right. A _failure code path_ is the path data takes if something goes wrong.
-   * For example, it may be tempting to return default values in the case of an error and allow the application to continue as normal.
-   * This may be appropriate in some cases, but can often cover up the root cause of an error and make it difficult to track down, or result in unhelpful error messages.
-3. **Propagate errors to a part of the application that has sufficient context to know how to deal with them.**
-   * Many times, we will write generic functions to perform common actions, like making a network request.
-   * If the network request fails, the generic function cannot infer the appropriate response, because it doesn't know which part of the application it has been called from.
-   * It should therefore try to propagate the error to its caller instead of trying to recover directly.
+   * A _code path_ is the path that data takes through your code. A _success code path_ is the path data takes if everything goes right. A _failure code path_ is the path data takes if something goes wrong. It may be tempting to return default values in the case of an error and allow the application to continue as normal. This may be appropriate in some cases, but can often cover up the root cause of an error and make it difficult to track down, or result in unhelpful error messages.
 
 ### Illustrative Example
 
-To illustrate the three approaches we will cover, we will use the same simple example in each, so that comparisons are easier. Imagine you intend to write a function `applyToInteger`, with the following signature:
+To illustrate the three approaches we will cover, we will use the same simple example in each. Imagine you intend to write a function `applyToInteger`, with the following signature:
 
 ```js
 applyToInteger(func, integer);
 ```
 
-That is, the function accepts two arguments, `func`, which is a `Function`, and `integer` which is a whole `Number`. It applies the `func` to `integer` and returns the result. We will use this example to explore how to deal with unexpected inputs.
-
-### Approaches
-
-We will look at three approaches in detail, each covered in their own section:
+The function accepts two arguments, `func`, which is a `Function`, and `integer` which is a whole `Number`. It applies the `func` to `integer` and returns the result.
 
 ### [Approach 1: Error-first callbacks](./docs/approach_1.md)
 
@@ -118,27 +104,14 @@ This section covers the recommended way of dealing with asynchronous errors.
 
 This section covers one way of dealing with synchronous errors.
 
-### [Approach 3: Returning errors to the caller](./docs/approach_3.md)
+---
 
-This section covers another way of dealing with synchronous errors.
+NB. Error-First Callback Pattern: You _must_ ensure that the callback is not called more than once in your function. This can be done either using `if/else` blocks, `switch` statements (with `break`), or early `return` statements (e.g. `return callback(null, result)`).
 
-# Notes
-
-These notes are important to be aware of in general, but are not necessary for the purposes of the workshop.
-
-#### Error-First Callback Pattern
-
-There are a couple of gotchas when using this callback pattern:
-
-* You _must_ ensure that the callback is not called more than once in your function. This can be done either using `if/else` blocks, `switch` statements (with `break`), or early `return` statements (e.g. `return callback(null, result)`).
-* When presenting a callback interface to the caller, it will expect the callback to be executed asynchronously. In Node.js, you can use [`process.nextTick`](https://nodejs.org/api/process.html#process_process_nexttick_callback_args) for this purpose, on the client-side, you can use `setTimeout(Function, 0)`. Again, learn about the [event-loop and the call-stack](https://www.youtube.com/watch?v=8aGhZQkoFbQ) to understand why.
-
-# External Resources
+# Further reading
 
 1. [Rafe's (@rjmk) Error Handling Talk](https://github.com/rjmk/fac-error-talk)
 2. [Joyent - Error Handling in Node.js](https://www.joyent.com/node-js/production/design/errors)
 3. [Proper Error Handling in JavaScript](https://www.sitepoint.com/proper-error-handling-javascript/)
 4. [The Beginner's Guide to Type Coercion: A Practical Example](https://code.tutsplus.com/articles/the-beginners-guide-to-type-coercion-a-practical-example--cms-21998)
 5. [MDN - Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
-6. [MDN - instanceof](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof)
-7. [404 Error Pages](https://www.smashingmagazine.com/2009/01/404-error-pages-one-more-time/)
