@@ -1,95 +1,59 @@
 'use strict';
 
-
 /*
- * 1. Write a function that calls its callback with an error if called with invalid arguments
+ * 1. Complete combinedLength function that calls its callback with an error if called with invalid arguments
  *
- * Fill in the body of the function `combinedLength`, which should execute the given
- * callback with (null, the combined length of two arrays) if it receives correct
- * arguments, and  otherwise should execute its callback with (an appropriate error).
+ * If successful, the function should execute its callback with (null, the combined length of two arrays)
+ * If error, it should execute its callback with (err).
  */
 
-/**
- * Calculates the combined length of two arrays
- * @param   {Array}     a  First array
- * @param   {Array}     b  Second array
- * @param   {Function}  cb Callback
- * @returns {undefined}    Nothing
- */
-const combinedLength = (a, b, cb) => {
-  if (! Array.isArray(a) || ! Array.isArray(b)) {
+const combinedLength = (array1, array2, cb) => {
+  if (!Array.isArray(array1) || !Array.isArray(array2)) {
     return cb(new TypeError('Both inputs must be arrays'))
   }
 
-  return cb(null, a.length + b.length);
+  return cb(null, array1.length + array2.length);
 };
 
 
 /*
- * 2. Write a function that sums the numbers in an array and calls its
- *    callback with an error if called with invalid arguments
- *
- * Fill in the body of the function `sumArray`, which should execute the given
- * callback with (null, the sum of all the elements in the input array). If it
- * receives incorrect arguments, it should execute its callback with (an error).
- *
- * Note that all elements of the input array must be numbers.
+ * 2. Complete sumArray function that sums the numbers in an array and calls its callback with an error if called with invalid arguments
  */
 
-/**
- * Sums numbers in an array
- * @param   {Array}    xs list of numbers
- * @param   {Function} cb Callback
- * @returns {undefined}   Nothing
- */
-const sumArray = (xs, cb) => {
-  if (!Array.isArray(xs)) {
+const sumArray = (array, cb) => {
+  if (!Array.isArray(array)) {
     return cb(new TypeError('Argument must be an array'));
   }
 
-  if (!xs.every((x) => typeof x === 'number')) {
+  if (!array.every((array) => typeof x === 'number')) {
     return cb(new TypeError('Array elements must be numbers'));
   }
 
-  return cb(null, xs.reduce((a, b) => a + b, 0));
+  return cb(null, array.reduce((a, b) => a + b, 0));
 }
 
 /*
- * 3. Write a function that handles errors returned by (1) and (2)
+ * 3. Complete function `combineAndPrint`, which should calculate the combined length of array1 and array2
+ * and the sum of the elements in the combined array.
  *
- * Fill in the body of the function `combineAndPrint`, which should find the
- * combined length of two arrays and the total sum of all their elements.
- * If an error occurs, the function should instead print a useful message
- * explaining what went wrong.
+ * Return the string including the two calculations: "Combined length: <combinedlength>; Combined sum of elements: <sumofelementsincombinedarray>".
+ * In the case of invalid inputs, the function should return "Invalid arguments: both arguments must be arrays"
  */
 
-/**
- * Returns a string of the format
- *   "Combined length: L; Combined sum of elements: S"
- * Where L is the combined length of the two arrays and S is the sum of the elements of the array
- *
- * The function should use `combinedLength`. In the case of invalid inputs, the
- * function should return the string
- *   "Invalid arguments: both arguments must be arrays"
- * @param   {Array}    a  First array
- * @param   {Array}    b  Second array
- * @param   {Function} cb Callback
- * @returns {undefined}   Nothing
- */
-const combineAndPrint = (a, b, cb) => {
+const combineAndPrint = (array1, array2, cb) => {
   const errMsg = 'Invalid arguments: both arguments must be arrays';
 
-  combinedLength(a, b, (err1, L) => {
-    if (err1) {
+  combinedLength(array1, array2, (err, length) => {
+    if (err) {
       return cb(errMsg);
     }
 
-    sumArray(a.concat(b), (err2, S) => {
-      if (err2) {
+    sumArray(array1.concat(array2), (err, sum) => {
+      if (err) {
         return cb(errMsg);
       }
 
-      cb(null, `Combined length: ${L}; Combined sum of elements: ${S}`);
+      cb(null, `Combined length: ${length}; Combined sum of elements: ${sum}`);
     })
   });
 };
