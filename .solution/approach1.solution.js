@@ -25,7 +25,7 @@ const sumArray = (array, cb) => {
     return cb(new TypeError('Argument must be an array'));
   }
 
-  if (!array.every((array) => typeof x === 'number')) {
+  if (!array.every((element) => typeof element === 'number')) {
     return cb(new TypeError('Array elements must be numbers'));
   }
 
