@@ -24,7 +24,7 @@ const applyToInteger = (func, integer) => {
 
 Errors that have been thrown can be caught using a [`try...catch`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch) block. The `catch` block will catch all errors that arise in the `try` block, even if they are programmer errors. Ideally there would be sufficient logic in the `catch` block to differentiate these cases so that we are not at risk of recovering from a programmer error as though it is an operational error.
 
-In the example below, we're augmenting above example by using a `try/catch` block. The try block tries to execute the code. If no error is thrown during the try block, the catch block will not run. However if the try block throws an error, the catch block will catch the error and do something with it.
+Now we are going to augment the throw example above by using a `try/catch` block. The try block tries to execute the code. If no error is thrown during the try block, the catch block will not run. However if the try block throws an error, the catch block will catch the error and do something with it.
 
 ### Example continued
 ```js
