@@ -28,7 +28,7 @@ const sumArray = (array) => {
     throw new TypeError('Array elements must be numbers');
   }
 
-  return xs.reduce((a, b) => a + b, 0);
+  return array.reduce((a, b) => a + b, 0);
 }
 
 /*
