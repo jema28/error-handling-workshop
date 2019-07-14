@@ -2,7 +2,8 @@
 
 ## Throwing
 
-During runtime, errors can be thrown in our application unexpectedly by computations acting on faulty computations produced earlier. We can also manually throw errors ourselves by using the [`throw`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw) keyword. This will immediately terminate the application, unless there is a [`catch`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch) block in the call stack.
+1. During runtime, errors can be thrown in our application unexpectedly by computations acting on faulty computations produced earlier.
+2. We can also manually throw errors ourselves by using the [`throw`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw) keyword. This will immediately terminate the application, unless there is a [`catch`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch) block in the call stack.
 
 ## Catching
 
