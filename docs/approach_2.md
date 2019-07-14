@@ -2,13 +2,10 @@
 
 ## Throwing
 
-During runtime, errors can be thrown in our application unexpectedly by computations acting on faulty computations produced earlier. We can also manually throw errors ourselves by using the [`throw`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw) keyword. This will immediately terminate the application, unless there is a [`catch`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch) block in the call stack.
+1. During runtime, errors can be thrown in our application unexpectedly by computations acting on faulty computations produced earlier.
+2. We can also manually throw errors ourselves by using the [`throw`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw) keyword. This will immediately terminate the application, unless there is a [`catch`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch) block in the call stack.
 
-## Catching
-
-Errors that have been thrown can be caught using a [`try...catch`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch) block. The `catch` block will catch all errors that arise in the `try` block, even if they are programmer errors. Ideally there would be sufficient logic in the `catch` block to differentiate these cases so that we are not at risk of recovering from a programmer error as though it is an operational error.
-
-## Example
+### Example
 
 ```js
 const applyToInteger = (func, integer) => {
@@ -23,8 +20,13 @@ const applyToInteger = (func, integer) => {
 };
 ```
 
-We can augment this approach by using a `try/catch` block. The try block tries to execute the code. If no error is thrown during the try block, the catch block will not run. However if the try block throws an error, the catch block will catch the error and do something with it.
+## Catching
 
+Errors that have been thrown can be caught using a [`try...catch`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch) block. The `catch` block will catch all errors that arise in the `try` block, even if they are programmer errors. Ideally there would be sufficient logic in the `catch` block to differentiate these cases so that we are not at risk of recovering from a programmer error as though it is an operational error.
+
+Now we are going to augment the throw example above by using a `try/catch` block. The try block tries to execute the code. If no error is thrown during the try block, the catch block will not run. However if the try block throws an error, the catch block will catch the error and do something with it.
+
+### Example continued
 ```js
 const applyAndPrintResult = (func, integer) => {
   try {
