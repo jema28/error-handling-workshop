@@ -5,7 +5,7 @@
 1. During runtime, errors can be thrown in our application unexpectedly by computations acting on faulty computations produced earlier.
 2. We can also manually throw errors ourselves by using the [`throw`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw) keyword. This will immediately terminate the application, unless there is a [`catch`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch) block in the call stack.
 
-## Example
+### Example
 
 ```js
 const applyToInteger = (func, integer) => {
@@ -26,6 +26,7 @@ Errors that have been thrown can be caught using a [`try...catch`](https://devel
 
 In the example below, we're augmenting above example by using a `try/catch` block. The try block tries to execute the code. If no error is thrown during the try block, the catch block will not run. However if the try block throws an error, the catch block will catch the error and do something with it.
 
+### Example continued
 ```js
 const applyAndPrintResult = (func, integer) => {
   try {
