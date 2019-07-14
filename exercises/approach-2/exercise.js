@@ -33,6 +33,21 @@ const combineAndPrint = (a, b) => {
   // CODE HERE
 };
 
+ /*	
+ * **Harder Stretch goal: Write a function that wraps another function in try/catch	
+ *	
+ * Complete `wrapTryCatch` function, which takes a function `fn1` as an argument 
+   and returns another function `fn2` which wraps the first in a try/catch statement.	
+ *	
+ * `fn2` should behave exactly like `fn1` except in the case where `fn1` throws an	
+ * error, in which case `fn2` should simply return `undefined`	
+ */	
+
+const wrapTryCatch = (fn) => (...args) => {	
+  throw new Error('Delete this line and write your code below');	
+  // CODE HERE	
+};	
+
 module.exports = {
   combinedLength,
   sumArray,
